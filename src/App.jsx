@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import Anthropic from '@anthropic-ai/sdk'
+import Groq from 'groq-sdk'
 import './App.css'
 
 const SYSTEM_PROMPT = `You are a food waste analysis AI for Winnow, a food waste management company.
@@ -21,7 +21,7 @@ Analyze the provided image of food waste and return a JSON response with this ex
 Return ONLY valid JSON, no markdown, no extra text.`
 
 export default function App() {
-  const [apiKey, setApiKey] = useState(import.meta.env.VITE_ANTHROPIC_API_KEY || '')
+  const [apiKey, setApiKey] = useState(import.meta.env.VITE_GROQ_API_KEY || '')
   const [image, setImage] = useState(null)
   const [imageBase64, setImageBase64] = useState(null)
   const [imageMime, setImageMime] = useState(null)
@@ -51,32 +51,37 @@ export default function App() {
       return
     }
     if (!apiKey.trim()) {
-      setStatus('Please enter your Anthropic API key above.')
+      setStatus('Please enter your Groq API key above.')
       return
     }
     setLoading(true)
     setStatus('Analyzing food waste...')
     setReport(null)
     try {
-      const client = new Anthropic({ apiKey: apiKey.trim(), dangerouslyAllowBrowser: true })
-      const response = await client.messages.create({
-        model: 'claude-sonnet-4-6',
+      const client = new Groq({ apiKey: apiKey.trim(), dangerouslyAllowBrowser: true })
+      const response = await client.chat.completions.create({
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
         max_tokens: 1024,
-        system: SYSTEM_PROMPT,
         messages: [
+          {
+            role: 'system',
+            content: SYSTEM_PROMPT,
+          },
           {
             role: 'user',
             content: [
               {
-                type: 'image',
-                source: { type: 'base64', media_type: imageMime, data: imageBase64 },
+                type: 'image_url',
+                image_url: {
+                  url: `data:${imageMime};base64,${imageBase64}`,
+                },
               },
               { type: 'text', text: 'Analyze this food waste image and return the JSON report.' },
             ],
           },
         ],
       })
-      const data = JSON.parse(response.content[0].text)
+      const data = JSON.parse(response.choices[0].message.content)
       setReport(data)
       setStatus('Analysis complete.')
     } catch (err) {
@@ -98,14 +103,14 @@ export default function App() {
     <div className="app">
       <h1 className="title">Winnow AI Food Waste Scanner</h1>
 
-      {!import.meta.env.VITE_ANTHROPIC_API_KEY && (
+      {!import.meta.env.VITE_GROQ_API_KEY && (
         <div className="api-key-section">
-          <label htmlFor="apikey" className="api-key-label">Anthropic API Key</label>
+          <label htmlFor="apikey" className="api-key-label">Groq API Key (free at console.groq.com)</label>
           <input
             id="apikey"
             type="password"
             className="api-key-input"
-            placeholder="sk-ant-..."
+            placeholder="gsk_..."
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
           />
