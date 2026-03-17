@@ -1,0 +1,216 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7c00d4;
+  text-align: center;
+}
+
+/* API Key section */
+.api-key-section {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.api-key-label {
+  font-size: 0.9rem;
+  color: #7c00d4;
+  font-weight: 600;
+}
+
+.api-key-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #c9a8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.7);
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.api-key-input:focus {
+  border-color: #9b59d4;
+}
+
+/* Upload area */
+.upload-area {
+  width: 100%;
+  max-width: 700px;
+  min-height: 220px;
+  border: 2px dashed #c9a8f0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.upload-area:hover {
+  border-color: #9b59d4;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #9b59d4;
+  font-size: 1rem;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Scan button */
+.scan-btn {
+  background: #ff8c00;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.scan-btn:hover:not(:disabled) {
+  background: #e07800;
+}
+
+.scan-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.scan-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Status */
+.status {
+  font-size: 1.1rem;
+  color: #7c00d4;
+  font-weight: 500;
+}
+
+/* Report card */
+.report-card {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px 40px;
+  text-align: center;
+}
+
+.report-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111;
+}
+
+/* Table */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 28px;
+}
+
+.report-table thead tr {
+  background: #ff8c00;
+}
+
+.report-table th {
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.report-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.report-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.report-table td {
+  padding: 12px 16px;
+  text-align: center;
+  color: #222;
+  font-size: 0.95rem;
+}
+
+/* Totals */
+.totals {
+  margin-bottom: 24px;
+}
+
+.totals h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.totals p {
+  font-size: 0.95rem;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+/* Insights */
+.insights h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.insights p {
+  font-size: 0.95rem;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  .report-card {
+    padding: 20px 16px;
+  }
+}
