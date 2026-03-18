@@ -204,8 +204,7 @@ export default function App() {
       <div className="camera-section">
         {!captured ? (
           <>
-            {cameraActive ? (
-              <div className="camera-wrap">
+            <div className="camera-wrap" style={{ display: cameraActive ? '' : 'none' }}>
                 <video ref={videoRef} className="camera-feed" autoPlay playsInline muted />
                 <div className="camera-overlay">
                   <div className="camera-corner tl" /><div className="camera-corner tr" />
@@ -216,7 +215,7 @@ export default function App() {
                   <span className="capture-dot" />
                 </button>
               </div>
-            ) : (
+              {!cameraActive && (
               <div className="camera-error-wrap">
                 <div className="camera-error-icon">
                   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
